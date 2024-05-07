@@ -1,6 +1,8 @@
 import numpy as np
 import tf_keras as keras
 import tensorflow_hub as hub
+from PIL import Image
+import io
 
 model = keras.models.load_model(
        ('catdog.h5'),
@@ -13,7 +15,8 @@ target_size = (224, 224)
 # Load the trained model
 # model = tf.keras.models.load_model("path/to/saved/model")
 
-def preprocess_image(image):
+def preprocess_image(contents):
+    image = Image.open(io.BytesIO(contents))
     # Resize the image to match the target size expected by the model
     image = image.resize(target_size)
     # Convert the image to a NumPy array
